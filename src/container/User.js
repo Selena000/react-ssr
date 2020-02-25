@@ -1,9 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getUserInfo } from '../store/user'
+import { Redirect } from 'react-router-dom'
 
 function User(props) {
-  console.log('props', props)
+  if (true) {
+    return <Redirect to="/login"></Redirect>
+  }
   return <div>
     <h1>GO, {props.userInfo.name}.....{props.userInfo.best}</h1>
   </div>

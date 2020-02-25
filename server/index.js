@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { StaticRouter, matchPath, Route } from 'react-router-dom'
+import { StaticRouter, matchPath, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
@@ -43,16 +43,30 @@ app.get('*', (req, res) => {
   })
   Promise.all(promises).then(() => {
   // Promise.allSettled(promises).then(() => {
+    const context = {}
     // const Page = <App title="React !!!!"></App>
     const content = renderToString(
       <Provider store={store}>
-        <StaticRouter location={req.url}>
+        <StaticRouter location={req.url} context={context}>
           <Header></Header>
           {/* {App} */}
-          { routes.map(route => <Route {...route}></Route>)}
+          <Switch>
+          { routes.map(route => <Route {...route}></Route>) }
+          </Switch>
         </StaticRouter>
       </Provider>
     )
+
+    console.log('context======', context)
+
+    if (context.statuscode) {
+      res.status(context.statuscode)
+    }
+
+    if (context.action === 'REPLACE') {
+      res.redirect(301, context.url)
+    }
+
     res.send(`
       <html>
         <head>

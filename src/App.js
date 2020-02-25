@@ -3,6 +3,9 @@ import React from 'react'
 import Index from './container/Index'
 import About from './container/About'
 import User from './container/User'
+import NotFound from './container/NotFound'
+import Login from './container/Login'
+
 import './App.css'
 
 // export default (
@@ -34,4 +37,15 @@ export default [
     exact: true,
     key: 'user'
   },
+  {
+    path: '/login',
+    component: Login,
+    // loadData: User.loadData,
+    exact: true,
+    key: 'login'
+  },
+  {
+    component: NotFound,
+    key: 'notFound'
+  }
 ]
