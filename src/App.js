@@ -6,7 +6,7 @@ import User from './container/User'
 import NotFound from './container/NotFound'
 import Login from './container/Login'
 
-import './App.css'
+// import './App.css'
 
 // export default (
 //   <div>
