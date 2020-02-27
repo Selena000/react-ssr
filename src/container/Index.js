@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getIndexList } from '../store/index'
+import withStyle from '../withStyle'
 import styles from './Index.css'
 
-console.log('Style-----====', styles._getCss())
+// console.log('Style-----====', styles._getCss())
 
 function Index(props) {
 
-  if (props.staticContext) {
-    props.staticContext.css.push(styles.getCss())
-  }
+  // if (props.staticContext) {
+  //   props.staticContext.css.push(styles._getCss())
+  // }
 
   const [count, setCount] = useState(1)
   // return <h1>React SSR.........{props.title}</h1>
@@ -38,4 +39,14 @@ Index.loadData = store => {
 export default connect(
   state => ({ list: state.index.list }), 
   {getIndexList}
-)(Index)
+)(withStyle(Index, styles))
+
+// let newIndex = connect(
+//   state => ({ list: state.index.list }), 
+//   {getIndexList}
+// )(withStyle(Index, styles))
+
+// newIndex.loadData = store => {
+//   return store.dispatch(getIndexList())
+// }
+// export default newIndex
